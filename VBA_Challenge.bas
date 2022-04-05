@@ -1,4 +1,4 @@
-Attribute VB_Name = "Module1"
+Attribute VB_Name = "Module11"
 Sub OrganizeTicker()
 Dim sheet_num As Integer
 Dim last_row As Long
@@ -23,12 +23,7 @@ Dim greatest_volume_total As Variant
 
 sheet_num = Application.Worksheets.Count
 
-greatest_increase_ticker = "0"
-greatest_increase_percent = 0
-greatest_decrease_ticker = "0"
-greatest_decrease_percent = 0
-greatest_volume_ticker = "0"
-greatest_volume_total = 0
+
 
 
 
@@ -38,8 +33,15 @@ For i = 1 To sheet_num
     Set ws = wb.Worksheets(i)
     Set range_num = ws.Range("I1")
     Set ticker_num = ws.Range("A1")
+
     stock_open = 0
     stock_close = 0
+    greatest_increase_ticker = "0"
+    greatest_increase_percent = 0
+    greatest_decrease_ticker = "0"
+    greatest_decrease_percent = 0
+    greatest_volume_ticker = "0"
+    greatest_volume_total = 0
     
     ws.Range("A1").Value = "Ticker"
     
@@ -73,6 +75,7 @@ For i = 1 To sheet_num
             ws.Cells(x, 10).Interior.ColorIndex = 3
         End If
         
+        
         If ws.Cells(x, 11).Value > greatest_increase_percent Then
             greatest_increase_ticker = ws.Cells(x, 9).Value
             greatest_increase_percent = ws.Cells(x, 11).Value
@@ -94,24 +97,25 @@ For i = 1 To sheet_num
     ws.Range("L1").Value = "Total Stock Volume"
 
     
+    ws.Range("P1").Value = "Ticker"
+    ws.Range("Q1").Value = "Value"
+    ws.Range("O2").Value = "Greatest % Increase"
+    ws.Range("O3").Value = "Greatest % Decrease"
+    ws.Range("O4").Value = "Greastest Total Volume"
+    ws.Range("P2").Value = greatest_increase_ticker
+    ws.Range("Q2").Value = greatest_increase_percent
+    ws.Range("P3").Value = greatest_decrease_ticker
+    ws.Range("Q3").Value = greatest_decrease_percent
+    ws.Range("P4").Value = greatest_volume_ticker
+    ws.Range("Q4").Value = greatest_volume_total * 10000
+    ws.Range("Q2").NumberFormat = "0.00%"
+    ws.Range("Q3").NumberFormat = "0.00%"
+    
+    
+    
+    
 Next i
 
-
-Worksheets(1).Activate
-
-wb.Worksheets(1).Range("P1").Value = "Ticker"
-wb.Worksheets(1).Range("Q1").Value = "Value"
-wb.Worksheets(1).Range("O2").Value = "Greatest % Increase"
-wb.Worksheets(1).Range("O3").Value = "Greatest % Decrease"
-wb.Worksheets(1).Range("O4").Value = "Greastest Total Volume"
-wb.Worksheets(1).Range("P2").Value = greatest_increase_ticker
-wb.Worksheets(1).Range("Q2").Value = greatest_increase_percent
-wb.Worksheets(1).Range("P3").Value = greatest_decrease_ticker
-wb.Worksheets(1).Range("Q3").Value = greatest_decrease_percent
-wb.Worksheets(1).Range("P4").Value = greatest_volume_ticker
-wb.Worksheets(1).Range("Q4").Value = greatest_volume_total * 10000
-wb.Worksheets(1).Range("Q2").NumberFormat = "0.00%"
-wb.Worksheets(1).Range("Q3").NumberFormat = "0.00%"
 
 
 End Sub
